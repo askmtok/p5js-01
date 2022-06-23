@@ -1,17 +1,4 @@
 <!DOCTYPE html>
-<!-- 　　 _,,....,,_　 ＿人人人人人人人人人人人人人人人＿
--''":::::::::::::｀''＞　　　ゆっくりしていってね！！！　　　＜
-ヽ:::::::::::::::::::::￣^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^Ｙ^￣
-　|::::::;ノ´￣＼:::::::::::＼_,. -‐ｧ　　　　　＿_　　 _____　　 ＿_____
-　|::::ﾉ　　　ヽ､ヽr-r'"´　　（.__　　　　,´　_,, '-´￣￣｀-ゝ 、_ イ、
-_,.!イ_　　_,.ﾍｰｧ'二ﾊ二ヽ､へ,_7　　　'r ´　　　　　　　　　　ヽ、ﾝ、
-::::::rｰ''7ｺ-‐'"´　 　 ;　 ',　｀ヽ/｀7　,'＝=─-　　　 　 -─=＝',　i
-r-'ｧ'"´/　 /!　ﾊ 　ハ　 !　　iヾ_ﾉ　i　ｲ　iゝ、ｲ人レ／_ルヽｲ i　|
-!イ´ ,' |　/__,.!/　V　､!__ﾊ　 ,'　,ゝ　ﾚﾘｲi (ﾋ_] 　　 　ﾋ_ﾝ ).| .|、i .||
-`! 　!/ﾚi'　(ﾋ_] 　　 　ﾋ_ﾝ ﾚ'i　ﾉ　　　!Y!""　 ,＿__, 　 "" 「 !ﾉ i　|
-,'　 ﾉ 　 !'"　 　 ,＿__,　 "' i .ﾚ'　　　　L.',.　 　ヽ _ﾝ　　　　L」 ﾉ| .|
-　（　　,ﾊ　　　　ヽ _ﾝ　 　人! 　　　　 | ||ヽ、　　　　　　 ,ｲ| ||ｲ| /
-,.ﾍ,）､　　）＞,､ _____,　,.イ　 ハ　　　　レ ル｀ ー--─ ´ルﾚ　ﾚ´ -->
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -23,16 +10,90 @@ r-'ｧ'"´/　 /!　ﾊ 　ハ　 !　　iヾ_ﾉ　i　ｲ　iゝ、ｲ人レ�
     <meta property="og:image" content="https://askmtok.github.io/www/images/ogp.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta meta="meta" property="og:description" content="松岡明日香のホームページです。" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0000ff" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#333333" />
+    <meta name="theme-color" content="#0565C7" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>松岡明日香のホームページ</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#9786;</text></svg>" />
-    <link href="css/style.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-    <script src="js/sketch.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
   </head>
   <body>
-    <article class="main"></article>
+    <div class="full">
+      <div id="video-area">
+        <video id="video" poster="" webkit-playsinline playsinline muted autoplay loop>
+          <!--
+            poster：動画ファイルが利用できない環境で代替表示される画像
+            webkit-playsinline：iOS 9までのSafari用インライン再生指定
+            playsinline：iOS 10以降のSafari用インライン再生指定
+            muted：音声をミュートさせる
+            autoplay：動画を自動再生させる
+            loop：動画をループさせる
+            controls：コントロールバーを表示する
+        -->
+          <source src="images/sky.mp4" type="video/mp4" />
+          <p>動画を再生できる環境ではありません。</p>
+        </video>
+        <!--/video-area-->
+      </div>
+    </div>
   </body>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+    }
+
+    #video-area {
+      position: fixed;
+      z-index: -1; /*最背面に設定*/
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    #video {
+      /*天地中央配置*/
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /*縦横幅指定*/
+      width: 177.77777778vh; /* 16:9 の幅→16 ÷ 9＝ 177.77% */
+      height: 56.25vw; /* 16:9の幅 → 9 ÷ 16 = 56.25% */
+      min-height: 100%;
+      min-width: 100%;
+    }
+    .full {
+      background-image: url(images/bg.png);
+      background-position: center;
+      background-size: cover;
+      width: 100%;
+      height: 100vh;
+      z-index: 999;
+    }
+    .full::before {
+      content: "";
+      display: block;
+      padding-top: 50%;
+    }
+
+    @media only screen and (max-width: 750px) {
+      .full {
+        background-image: url(images/bg-sp.png);
+        background-position: center;
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+        z-index: 999;
+      }
+      .full::before {
+        content: "";
+        display: block;
+        padding-top: 50%;
+      }
+    }
+  </style>
 </html>

@@ -1,25 +1,58 @@
+let angle = 0;
+let monkey, pot;
+
 function preload() {
-  dog = loadModel("shinjuku.obj");
+  // サル用のobjファイルをロード
+  monkey = loadModel("images/cat.obj");
 }
 
 function setup() {
-  createCanvas(w, w, WEBGL);
-  colorMode(HSB);
-  noStroke();
-  noLoop();
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  angleMode(DEGREES);
 }
 
 function draw() {
-  background(0);
+  background(100);
+  orbitControl();
+  // ページクリックでライト、マテリアルの有無を切り替え
+  if (isLightMaterialOn) {
+    noStroke();
+    ambientLight(200);
+    directionalLight(255, 255, 255, 1, 1, 0);
+    ambientMaterial(111, 67, 53);
+    specularMaterial(111, 67, 53);
+  } else {
+    noLights();
+    fill(255);
+    stroke(1);
+  }
 
-  ambientLight(10);
-  pointLight(200, 100, 100, -w / 2, -w / 2, w);
-  specularMaterial(100);
+  // monky
+  push();
+  translate(-100, 0, 0);
+  // 適度なサイズに拡大
+  scale(40);
+  // そのままでは逆さなので上下を逆にする
+  rotateZ(180);
+  rotateY(angle * 1.3);
+  // サルを描画
+  model(monkey);
+  pop();
 
-  translate(125, -50);
-  rotateX(-PI / 8);
-  rotateY(PI / 4);
-  rotateZ(PI);
-  scale(75);
-  model(dog);
+  // pot
+  push();
+  translate(100, 20, 0);
+  scale(2);
+  rotateZ(180);
+  rotateY(angle * 1.3);
+  model(pot);
+  pop();
+
+  angle += 1;
+}
+
+let isLightMaterialOn = true;
+
+function mousePressed() {
+  isLightMaterialOn = !isLightMaterialOn;
 }
